@@ -2,7 +2,7 @@
 """Evidence-based portfolio toolkit. Gives information, not advice.
 
   python advisor.py screen   [--top 20] [--max-per-sector 3]
-  python advisor.py backtest [--top 20] [--start 2012-01-01]
+  python advisor.py [--start 2012-01-01] backtest [--top 20]
   python advisor.py risk BTC-USD=1000 AAPL=150 JPM=150 ...
 Add --synthetic to any command to run on fake data (no internet needed).
 """

@@ -20,13 +20,38 @@ python advisor.py --synthetic risk BTC-USD=1000 AAPL=200   # offline smoke test
 
 ```bash
 python advisor.py screen --top 20 --max-per-sector 3
-python advisor.py backtest --top 20 --start 2012-01-01
+python advisor.py --start 2012-01-01 backtest --top 20
 python advisor.py risk BTC-USD=1000 JPM=150 LLY=150 COST=150 XOM=150 --years 1
 ```
 
 Holdings are `TICKER=dollars`. Crypto uses Yahoo symbols (`BTC-USD`, `ETH-USD`).
 Edit `universe.txt` to change which stocks the screener and backtest consider.
 Results and charts go to `output/`.
+
+## Results
+
+Backtest of the momentum + low-volatility strategy from January 2015 to October 2026: top 20 stocks from a ~70-stock large-cap universe, rebalanced monthly, 10 bps cost per trade.
+
+| | Strategy | Equal-weight universe |
+|---|---|---|
+| CAGR | 12.5% | 17.7% |
+| Volatility | 16.0% | 16.6% |
+| Sharpe (rf = 0) | 0.78 | 1.07 |
+| Max drawdown | −30.1% | −33.2% |
+| Worst month | −8.2% | −10.8% |
+| % months up | 62.4% | 71.6% |
+
+![Growth of $1 and drawdown for the strategy vs. the equal-weight universe](docs/backtest.png)
+
+**The strategy underperformed by 5.2% a year.** It had slightly lower volatility, a shallower worst drawdown and a milder worst month, but it gave up far more return than it saved in risk. The two lines track closely until 2020; most of the gap opens in the 2020–2021 rebound and widens through 2023–2026.
+
+Both lines are overstated by survivorship bias (see limitations below), so the comparison between them matters more than either number on its own.
+
+Reproduce with:
+
+```bash
+python advisor.py backtest   # defaults: data from 2014, top 20, 10 bps
+```
 
 ## How each piece works
 
